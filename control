@@ -1,0 +1,9 @@
+Package: com.p2kdev.instazoom
+Name: InstaZoom
+Depends: mobilesubstrate
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Zoom into images on Instagram!
+Maintainer: P2KDev <p2kdev@gmail.com>
+Author: P2KDev <p2kdev@gmail.com>
+Section: Tweaks
