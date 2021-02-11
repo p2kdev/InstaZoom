@@ -29,28 +29,16 @@
 @end
 
 @interface IGVideoClassicOverlayView : IGFeedItemVideoView
-
+	@property (nonatomic,retain) UILongPressGestureRecognizer* videoLongPressGesture;
 @end
 
-static UILongPressGestureRecognizer* imageLongPressGesture;
-//static UILongPressGestureRecognizer* videoLongPressGesture;
-
-// %hook IGViewController
-//
-// - (void)viewDidAppear:(_Bool)arg1{
-// %orig();
-// UILongPressGestureRecognizer *pressView = MSHookIvar<UILongPressGestureRecognizer *>(self, "_longPressRecognizer");
-// [self.view removeGestureRecognizer:pressView];
-// }
-//
-// %end
-
 // %hook IGVideoClassicOverlayView
+// 	%property (nonatomic,retain) UILongPressGestureRecognizer* videoLongPressGesture;
 //
 // // -(void)setDelegate {
 // - (void)layoutSubviews {
-//   	%orig();
-// 		if (!videoLongPressGesture)
+//   	%orig;
+// 		if (!self.videoLongPressGesture)
 // 		{
 // 			// for (UIGestureRecognizer *recognizer in self.gestureRecognizers)
 // 			// {
@@ -58,10 +46,10 @@ static UILongPressGestureRecognizer* imageLongPressGesture;
 // 	    //     [self removeGestureRecognizer:recognizer];
 // 	    // }
 //
-// 			UILongPressGestureRecognizer *videoLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
+// 			self.videoLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
 // 			//[longPress setDelegate:(id<UIGestureRecognizerDelegate>)self];
-// 			[videoLongPressGesture setMinimumPressDuration:1];
-// 			[self addGestureRecognizer:videoLongPressGesture];
+// 			[self.videoLongPressGesture setMinimumPressDuration:1];
+// 			[self addGestureRecognizer:self.videoLongPressGesture];
 // 		}
 // 	}
 //
@@ -88,14 +76,26 @@ static UILongPressGestureRecognizer* imageLongPressGesture;
 
 %hook IGImageView
 - (id)initWithFrame:(CGRect)arg1 shouldBackgroundDecode:(BOOL)arg2 shouldUseProgressiveJPEG:(BOOL)arg4 placeholderProvider:(id)arg5{
-	id orig = %orig;
-	if (!imageLongPressGesture)
-	{
+	IGImageView* orig = %orig;
+	//if (!imageLongPressGesture)
+	//{
 		UILongPressGestureRecognizer *imageLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
 		//[longPress setDelegate:(id<UIGestureRecognizerDelegate>)self];
 		[imageLongPressGesture setMinimumPressDuration:1];
-		[self addGestureRecognizer:imageLongPressGesture];
-	}
+		[orig addGestureRecognizer:imageLongPressGesture];
+	//}
+  return orig;
+}
+
+- (id)initWithFrame:(CGRect)arg1 shouldUseProgressiveJPEG:(BOOL)arg2 placeholderProvider:(id)arg3{
+	IGImageView* orig = %orig;
+	//if (!imageLongPressGesture)
+	//{
+		UILongPressGestureRecognizer *imageLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
+		//[longPress setDelegate:(id<UIGestureRecognizerDelegate>)self];
+		[imageLongPressGesture setMinimumPressDuration:1];
+		[orig addGestureRecognizer:imageLongPressGesture];
+	//}
   return orig;
 }
 

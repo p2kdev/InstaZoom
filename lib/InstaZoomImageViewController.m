@@ -83,7 +83,7 @@ static CGPoint initialTouchPoint;
             closeButtonY = self.view.safeAreaInsets.top > 0 ? self.view.safeAreaInsets.top : 40;
         }
 
-        self.doneButton.frame = CGRectMake(buttonX, closeButtonY, 50, 30);
+        self.doneButton.frame = CGRectMake(buttonX, closeButtonY, 70, 30);
         [self.doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.doneButton.backgroundColor = [UIColor grayColor];
         //self.doneButton.layer.borderColor = [UIColor blackColor].CGColor;
