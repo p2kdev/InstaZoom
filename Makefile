@@ -1,7 +1,9 @@
+export THEOS_PACKAGE_SCHEME=rootless
+export TARGET = iphone:clang:12.4:12.0
+
 include $(THEOS)/makefiles/common.mk
 
 export ARCHS = arm64 arm64e
-export TARGET = iphone:clang:13.0:13.0
 
 TWEAK_NAME = InstaZoom
 InstaZoom_FILES = Tweak.xm $(wildcard lib/*.m)
